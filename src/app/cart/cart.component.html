@@ -1,0 +1,9 @@
+
+<h2>Cart:</h2>
+
+
+<div class="container">
+  <ng-container *ngFor="let book of cart$ | async">
+    <app-book [book]="book"></app-book>
+  </ng-container>
+</div>

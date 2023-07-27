@@ -1,0 +1,29 @@
+<mat-card *ngIf="book">
+
+  <mat-card-title>
+    {{book.title}}
+  </mat-card-title>
+
+  <mat-card-content>
+    {{((book.description) || '' ).slice(0, 100)}}...
+    <img [src]="book.imageUrl">
+
+  </mat-card-content>
+
+  <mat-card-footer>
+    {{book.price}}
+  </mat-card-footer>
+
+  <mat-card-actions>
+    <button (click)="handleAddToCart()" mat-raised-button color="primary">Add To Cart</button>
+  </mat-card-actions>
+
+
+
+
+
+
+
+</mat-card>
+
+

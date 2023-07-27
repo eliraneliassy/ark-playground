@@ -1,0 +1,13 @@
+<div class="top">
+  <div>
+  <h2>Feed:</h2>
+  <app-search (termChanged)="termChanged($event)"></app-search>
+  </div>
+</div>
+
+<div class="container">
+  <ng-container *ngFor="let book of feed$ | async">
+    <app-book [book]="book" (addToCart)="addToCart($event)"></app-book>
+  </ng-container>
+</div>
+
