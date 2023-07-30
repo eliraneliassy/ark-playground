@@ -1,8 +1,10 @@
 <mat-toolbar color="primary">
   <span>My Application</span>
 
-  <a routerLink="feed">Feed</a>
-  <a routerLink="cart">Cart</a>
+  <div class="links">
+    <a routerLink="feed" routerLinkActive="active">Feed</a>
+    <a routerLink="cart" routerLinkActive="active">Cart</a>
+  </div>
 </mat-toolbar>
 <div class="router">
   <router-outlet></router-outlet>

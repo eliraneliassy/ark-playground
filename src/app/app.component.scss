@@ -1,3 +1,14 @@
+.links{
+  a{
+    margin-left: 15px;
+    color: #fff;
+    text-decoration-line: none;
+
+    &.active{
+      text-decoration-line: underline;
+    }
+  }
+}
 .router{
   display: flex;
   justify-content: center;
