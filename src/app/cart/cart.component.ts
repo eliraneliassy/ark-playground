@@ -1,11 +1,12 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Observable} from "rxjs";
 import {Book} from "../book.interface";
-import {StateService} from "../state.service";
+
 import {BooksService} from "../books.service";
 import {BookComponent} from "../book/book.component";
 import {SearchComponent} from "../search/search.component";
+import {AppStore} from "../app.store";
 
 @Component({
   selector: 'app-cart',
@@ -16,9 +17,9 @@ import {SearchComponent} from "../search/search.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent {
-  cart$: Observable<Book[]>;
-  constructor(private stateService: StateService) {
-    this.cart$ = this.stateService.selectCart$;
+  cart: Signal<Book[]>;
+  constructor(private appStore: AppStore) {
+    this.cart = this.appStore.selectCart;
   }
 
 

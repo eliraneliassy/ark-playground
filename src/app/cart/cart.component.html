@@ -3,7 +3,7 @@
 
 
 <div class="container">
-  <ng-container *ngFor="let book of cart$ | async">
+  <ng-container *ngFor="let book of cart()">
     <app-book [book]="book"></app-book>
   </ng-container>
 </div>

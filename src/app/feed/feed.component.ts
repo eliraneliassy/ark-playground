@@ -1,13 +1,14 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {BookComponent} from "../book/book.component";
-import {Observable, switchMap, tap} from "rxjs";
+import {Observable, Subject, switchMap, tap} from "rxjs";
 import {Book} from "../book.interface";
-import {StateService} from "../state.service";
+
 import {SearchComponent} from "../search/search.component";
 import {BooksService} from "../books.service";
+import {AppStore} from "../app.store";
 
 
 @Component({
@@ -19,18 +20,31 @@ import {BooksService} from "../books.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedComponent {
-  feed$: Observable<Book[]>;
-  constructor(private stateService: StateService, private bookService: BooksService) {
-    this.feed$ = this.stateService.selectFeed$;
+  feed: Signal<Book[]>;
+  term$ = new Subject<string>();
+
+  search$ = this.term$.pipe(
+    switchMap((term) => this.bookService.getBooks(term))
+  );
+  constructor(private appStore: AppStore, private bookService: BooksService) {
+    this.feed = this.appStore.selectFeed;
+    this.appStore.connect(this.search$, 'feed');
   }
 
   termChanged(term: string) {
-    this.bookService.getBooks(term).subscribe(
-      (res) => this.stateService.updateFeed(res)
-    )
+    // this.bookService.getBooks(term).subscribe(
+    //   (feed) => this.appStore.update({feed})
+    // )
+
+    this.term$.next(term);
+
+
+
+
+
   }
 
   addToCart(book: Book){
-    this.stateService.addToCart(book);
+    this.appStore.update((currentState) => ({...currentState, cart: [...currentState.cart, book]}))
   }
 }

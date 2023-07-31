@@ -6,7 +6,7 @@
 </div>
 
 <div class="container">
-  <ng-container *ngFor="let book of feed$ | async">
+  <ng-container *ngFor="let book of feed()">
     <app-book [book]="book" (addToCart)="addToCart($event)"></app-book>
   </ng-container>
 </div>
